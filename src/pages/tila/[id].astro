@@ -2,7 +2,6 @@
 import { db, Image, Category, User, eq } from "astro:db";
 import Layout from "../../layouts/Layout.astro";
 import ImageCard from "../../components/ImageCard.astro";
-import { imageConfig } from "astro:assets";
 
 const { id } = Astro.params;
 
@@ -21,8 +20,6 @@ if (!cat) {
 }
 
 // Images with user
-console.log("id", Number(id));
-
 const imagesWithUser = await db
   .select()
   .from(Image)
