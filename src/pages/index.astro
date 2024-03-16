@@ -7,7 +7,7 @@ import Card from '../components/Card.astro';
 const categories = await db.select().from(Category).all();
 ---
 
-<Layout title="Taidekollektiivi - tiloissa">
+<Layout title="Taidekaari 2024">
 	<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
 		{
 			categories.map((category) => (
