@@ -1,0 +1,52 @@
+---
+import { db, Image, Category, User, eq } from "astro:db";
+import Layout from "../../layouts/Layout.astro";
+import ImageCard from "../../components/ImageCard.astro";
+import { imageConfig } from "astro:assets";
+
+const { id } = Astro.params;
+
+if (!id) {
+  return Astro.redirect("/404");
+}
+
+const cat = await db
+  .select()
+  .from(Category)
+  .where(eq(Category.id, Number(id)))
+  .get();
+
+if (!cat) {
+  return Astro.redirect("/404");
+}
+
+// Images with user
+console.log("id", Number(id));
+
+const imagesWithUser = await db
+  .select()
+  .from(Image)
+  .where(eq(Image.categoryId, Number(id)))
+  .innerJoin(User, eq(Image.userId, User.id));
+
+console.log("imagesWithUser", imagesWithUser);
+
+const cardTransitionName = "card-" + id;
+---
+
+<Layout title={cat.name}>
+  
+  <div transition:name={cardTransitionName}>
+    <div class="mb-4">
+      <a href="/" class="text-gray-400 hover:underline font-semibold decoration-gray-500">&lArr; Takaisin etusivulle</a>
+    </div>
+    <h2 class="text-2xl mb-4">{cat.name}</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {
+        imagesWithUser.map(({ Image, User }) => (
+          <ImageCard imageId={Image.id} userName={User.name} width={400} filename={Image.filename} />
+        ))
+      }
+    </div>
+  </div>
+</Layout>

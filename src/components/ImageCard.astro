@@ -1,0 +1,23 @@
+---
+interface Props {
+  imageId: string;
+  filename: string;
+  userName: string;
+  width: number;
+}
+
+const { imageId, filename, userName, width } = Astro.props;
+
+const imageSrc = `https://imagedelivery.net/RUkpPV9lzZPhEDf5OZFR8A/${imageId}/w=${width}`;
+---
+<div class="bg-white rounded-lg overflow-hidden shadow-lg">
+  <img
+    src={imageSrc}
+    alt={filename}
+    class="w-full h-64 object-cover"
+  />
+  <div class="p-4">
+    <h2 class="text-lg font-bold text-gray-800">{filename}</h2>
+    <p class="text-gray-600">Tekijä {userName}</p>
+  </div>
+</div>
