@@ -22,7 +22,7 @@ const imageSrc = `https://imagedelivery.net/RUkpPV9lzZPhEDf5OZFR8A/${imageId}/${
   <img
     src={imageSrc}
     alt={title || filename}
-    class={`object-cover ${variant !== "public" ? "group-hover:opacity-75" : ""}`}
+    class={`${variant !== "public" ? " object-cover group-hover:opacity-75" : "w-full"}`}
   />
 </div>
 <div class="p-4 bg-white rounded-b-lg">
