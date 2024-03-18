@@ -100,7 +100,7 @@ const cardTransitionName = "card-" + categoryId;
               <button
                 id="deleteimagebutton"
                 type="button"
-                hx-delete={`/tila/${categoryId}/kuva/${imageId}`}
+                hx-delete={`/tila/${categoryId}/kuva/${imageId}/edit`}
                 hx-trigger="click"
                 hx-confirm="Haluatko varmasti poistaa kuvan?"
                 class=" text-red-500 underline font-semibold py-2 px-4"
