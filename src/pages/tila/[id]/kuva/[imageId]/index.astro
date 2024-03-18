@@ -70,6 +70,7 @@ const cardTransitionName = "card-" + categoryId;
             <button
               data-imageid={imageId}
               data-imagename={data.Image.filename}
+              id="downloadimagebutton"
               class="flex gap-1 items-center text-gray-800 transform transition duration-75 hover:scale-110 hover:text-gray-600 font-semibold py-2 px-4 rounded"
             >
               <svg
@@ -99,25 +100,31 @@ const cardTransitionName = "card-" + categoryId;
   </div>
   <script>
     document.addEventListener("astro:page-load", () => {
-      const downloadButton = document.querySelector(
-        "button"
+      const downloadButton = document.getElementById(
+        "downloadimagebutton"
       ) as HTMLButtonElement;
-      downloadButton.addEventListener("click", async (event) => {
-        const imageId = (event.target as HTMLElement).dataset.imageid;
-        const imageFilename = (event.target as HTMLElement).dataset.imagename;
 
-        if (!imageId || !imageFilename) {
-          return;
-        }
-        const response = await fetch(`/api/images/${imageId}/blob`);
-        const blob = await response.blob();
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = imageFilename;
-        a.click();
-        URL.revokeObjectURL(url);
-      });
+      if (downloadButton) {
+        downloadButton.addEventListener("click", async () => {
+          const imageId = downloadButton.dataset.imageid;
+          const imageFilename = downloadButton.dataset.imagename;
+
+          console.log({ imageId, imageFilename })
+
+          if (!imageId || !imageFilename) {
+            return;
+          }
+          const response = await fetch(`/api/images/${imageId}/blob`);
+          const blob = await response.blob();
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = imageFilename;
+          a.click();
+          URL.revokeObjectURL(url);
+        });
+      }
+      
     });
   </script></Layout
 >
