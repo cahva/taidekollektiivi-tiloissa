@@ -17,7 +17,7 @@ const imageSrc = `https://imagedelivery.net/RUkpPV9lzZPhEDf5OZFR8A/${imageId}/${
 ---
 
 <div
-  class="group aspect-h-7 aspect-w-10 block w-full overflow-hidden bg-white rounded-t-lg shadow-lg"
+  class={`group ${variant !== 'public' ? 'aspect-h-7 aspect-w-10' : ''} block w-full overflow-hidden bg-white rounded-t-lg shadow-lg`}
 >
   <img
     src={imageSrc}
