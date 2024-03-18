@@ -112,8 +112,8 @@ const cardTransitionName = "card-" + id;
       >
         <input type="hidden" name="categoryId" value={id} />
         <input type="hidden" name="imageId" />
-        <h3 class="text-xl mb-2">Lisää uusi kuva</h3>
-        <div class="flex items-center gap-4">
+        <h3 class="text-xl mb-4">Lisää uusi kuva</h3>
+        <div class="flex items-center gap-4 flex-wrap">
           <input
             type="file"
             name="file"
@@ -125,7 +125,7 @@ const cardTransitionName = "card-" + id;
             <label
               for="file"
               id="file-label"
-              class="bg-gray-500 text-white px-4 py-2 rounded-md cursor-pointer"
+              class="bg-gray-500 text-white px-4 py-2 rounded-md cursor-pointer text-nowrap"
               >Valitse kuva
             </label>
           </div>
