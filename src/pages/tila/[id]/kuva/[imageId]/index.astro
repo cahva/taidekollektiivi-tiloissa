@@ -1,0 +1,72 @@
+---
+import { db, eq, Image, User, Category } from "astro:db";
+import Layout from "../../../../../layouts/Layout.astro";
+import ImageCard from "../../../../../components/ImageCard.astro";
+
+const { id: categoryId, imageId } = Astro.params;
+
+const { user } = Astro.locals;
+
+if (!user) {
+  return Astro.redirect("/");
+}
+
+if (!imageId) {
+  return new Response(null, {
+    status: 404,
+    statusText: "Not Found",
+  });
+}
+
+const data = await db
+  .select()
+  .from(Image)
+  .innerJoin(User, eq(Image.userId, User.id))
+  .innerJoin(Category, eq(Image.categoryId, Category.id))
+  .where(eq(Image.id, imageId))
+  .get();
+
+if (!data) {
+  return new Response(null, {
+    status: 404,
+    statusText: "Not Found",
+  });
+}
+
+const isAuthor = user.id === data.User.id;
+
+const pageTitle = data.Image.title
+  ? `${data.Image.title} - ${data.User.fullname}`
+  : `Kuva ${data.Image.filename}`;
+
+const cardTransitionName = "card-" + categoryId;
+---
+
+<Layout title={pageTitle}>
+  <div class="mb-4" transition:animate="none">
+    <a
+      href=`/tila/${categoryId}`
+      class="text-gray-600 dark:text-gray-400 hover:underline font-semibold decoration-gray-500"
+      >&lArr; Takaisin osioon "{data.Category.name}"</a
+    >
+  </div>
+  <div transition:name={cardTransitionName}>
+    <ImageCard
+      filename={data.Image.filename}
+      imageId={data.Image.id}
+      userName={data.User.fullname}
+      title={data.Image.title}
+      gridsize={data.Image.gridsize}
+    >
+      {isAuthor && (
+        <div class="flex justify-end">
+          <a
+            href={`/tila/${categoryId}/kuva/${imageId}/edit`}
+            class="text-gray-600 dark:text-gray-400 hover:underline font-semibold decoration-gray-500"
+            >Muokkaa</a
+          >
+        </div>
+      )
+    </ImageCard>
+  </div>
+</Layout>
