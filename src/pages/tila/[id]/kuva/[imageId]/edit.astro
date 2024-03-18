@@ -114,6 +114,12 @@ const cardTransitionName = "card-" + categoryId;
     </form>
   </div>
 </Layout>
+<script>
+  document.addEventListener("astro:page-load", () => {
+    // We can scroll to bottom because coming to this page means we will edit properties of the image
+    window.scrollTo(0, document.body.scrollHeight);
+  })
+</script>
 <script
   src="https://unpkg.com/htmx.org@1.9.11"
   integrity="sha384-0gxUXCCR8yv9FM2b+U3FDbsKthCI66oH5IA9fHppQq9DDMHuMauqq1ZHBpJxQ0J0"
