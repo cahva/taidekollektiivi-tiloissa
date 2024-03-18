@@ -58,15 +58,66 @@ const cardTransitionName = "card-" + categoryId;
       title={data.Image.title}
       gridsize={data.Image.gridsize}
     >
-      {isAuthor && (
-        <div class="flex justify-end mt-4">
-          <a
-            href={`/tila/${categoryId}/kuva/${imageId}/edit`}
-            class="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded"
-            >Muokkaa</a
-          >
-        </div>
-      )
+      {
+        isAuthor && (
+          <div class="flex items-center justify-end mt-4 text-sm flex-wrap gap-2">
+            <a
+              href={`/tila/${categoryId}/kuva/${imageId}/edit`}
+              class="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded"
+            >
+              Muokkaa
+            </a>
+            <button
+              data-imageid={imageId}
+              data-imagename={data.Image.filename}
+              class="flex gap-1 items-center text-gray-800 transform transition duration-75 hover:scale-110 hover:text-gray-600 font-semibold py-2 px-4 rounded"
+            >
+              <svg
+                class="w-4 h-4 "
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"
+                />
+              </svg>
+
+              <span>Lataa kuva</span>
+            </button>
+          </div>
+        )
+      }
     </ImageCard>
   </div>
-</Layout>
+  <script>
+    document.addEventListener("astro:page-load", () => {
+      const downloadButton = document.querySelector(
+        "button"
+      ) as HTMLButtonElement;
+      downloadButton.addEventListener("click", async (event) => {
+        const imageId = (event.target as HTMLElement).dataset.imageid;
+        const imageFilename = (event.target as HTMLElement).dataset.imagename;
+
+        if (!imageId || !imageFilename) {
+          return;
+        }
+        const response = await fetch(`/api/images/${imageId}/blob`);
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = imageFilename;
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+    });
+  </script></Layout
+>
