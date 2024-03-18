@@ -47,12 +47,13 @@ const imageSrc = `https://imagedelivery.net/RUkpPV9lzZPhEDf5OZFR8A/${imageId}/${
           <input type="text" id="title" name="title" value={title} class="w-full p-2 border border-gray-300 rounded" />
         </label>
         <label class="block mb-2 text-sm font-bold text-gray-700" for="gridsize">
-          Koko
+          Ruudukon koko
           <select
               name="gridsize"
               id="gridsize"
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-amber-600 sm:max-w-xs sm:text-sm sm:leading-6"
             >
+              <option value="" selected={!gridsize}>Valitse koko</option>
               <option value="10x10" selected={gridsize === "10x10"}>10x10</option>
               <option value="20x20" selected={gridsize === "20x20"}>20x20</option>
             </select>
