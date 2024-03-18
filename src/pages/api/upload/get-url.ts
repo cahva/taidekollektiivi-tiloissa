@@ -57,8 +57,6 @@ export const GET: APIRoute = async ({ locals, request }) => {
 
   const data = await response.json();
 
-  console.log('Response from cloudflare', data);
-
   return new Response(JSON.stringify(data), {
     status: 200,
     headers: {

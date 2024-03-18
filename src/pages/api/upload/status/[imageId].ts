@@ -22,8 +22,6 @@ const API_TOKEN = import.meta.env.CLOUDFLARE_API_KEY;
 export const GET: APIRoute = async ({ params, locals }) => {
   const { imageId } = params;
 
-  console.log({ ACCOUNT_ID, API_TOKEN });
-
   const user = locals.user;
   if (!user) {
     return new Response("Unauthorized", { status: 401 });
@@ -34,8 +32,6 @@ export const GET: APIRoute = async ({ params, locals }) => {
  --header 'Authorization: Bearer <API_TOKEN>'
   */
 
- console.log('In get-url.ts', locals);
-
   const response = await fetch(`https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/images/v1/${imageId}`, {
     method: "GET",
     headers: {
@@ -44,8 +40,6 @@ export const GET: APIRoute = async ({ params, locals }) => {
     },
   });
   const data = await response.json();
-
-  console.log('Response from cloudflare', data);
 
   return new Response(JSON.stringify(data), {
     status: 200,

@@ -38,8 +38,6 @@ if (Astro.request.method === "POST") {
         .get();
 
       if (user) {
-        console.log("User ", user);
-
         const sessionId = nanoid();
 
         // Expires in 24 hours (unix timestamp in seconds)
