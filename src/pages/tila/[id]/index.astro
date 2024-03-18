@@ -190,6 +190,12 @@ const cardTransitionName = "card-" + id;
       addImageForm.classList.toggle("hidden");
       addImageButton.classList.toggle("hidden");
 
+      // Scroll to bottom
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth",
+      });
+
       // Get categoryId from addImageForm
       const formData = new FormData(addImageForm);
       const categoryId = formData.get("categoryId");
