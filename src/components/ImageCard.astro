@@ -29,9 +29,12 @@ const imageSrc = `https://imagedelivery.net/RUkpPV9lzZPhEDf5OZFR8A/${imageId}/${
   {
     !editmode && (
         <h2 class="text-lg font-bold text-gray-800">{title || filename}</h2>
-        <p class="text-gray-600">
-          {gridsize ? `Koko: ${gridsize},` : ""} Tekijä: {userName}
-        </p>
+        <div class="flex items-center justify-between">
+          <p class="text-gray-600">
+            Tekijä: {userName}
+          </p>
+          <span class="bg-pink-100 text-pink-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-pink-900 dark:text-pink-300">{gridsize}</span>
+        </div>
     )
   }
 
