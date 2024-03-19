@@ -24,7 +24,7 @@ const user = Astro.locals.user;
   </head>
   <body class="bg-creamy dark:bg-slate-800">
     <div
-      class="container mx-auto text-black dark:text-creamy my-2 lg:my-6 px-4 xl:dark:bg-gradient-to-t xl:dark:from-slate-700 xl:dark:to-slate-800 xl:bg-gradient-to-t xl:from-gray-50 xl:to-creamy xl:p-6 xl:rounded xl:shadow-lg"
+      class="container mx-auto text-black dark:text-creamy my-2 lg:my-6 px-4 xl:dark:bg-gradient-to-t xl:dark:from-slate-700 xl:dark:to-slate-800 xl:bg-gradient-to-t xl:from-gray-50 xl:to-creamy xl:p-6 xl:rounded xl:shadow-sm"
     >
       <header class="mb-4 flex items-center justify-between gap-3">
         <div
@@ -48,7 +48,7 @@ const user = Astro.locals.user;
         }
       </header>
 
-      <div transition:animate="slide">
+      <div transition:animate="fade">
         <slot />
       </div>
     </div>
